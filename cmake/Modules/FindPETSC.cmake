@@ -23,8 +23,8 @@ endif()
 # Petsc Library Directories
 if(NOT PETSC_LIBRARIES)
 	# Look for static library first?
-	set(CMAKE_FIND_LIBRARY_SUFFIXES .a;.so)
-
+	set(CMAKE_FIND_LIBRARY_SUFFIXES .a;.so;.dylib)
+	
 	find_library(PETSC_LIBRARIES
 		NAMES petsc
 		HINTS ${PETSC_ROOT} ENV PETSC_ROOT				# Petsc Root Path Variable

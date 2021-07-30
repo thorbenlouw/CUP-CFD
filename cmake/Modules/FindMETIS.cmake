@@ -24,8 +24,8 @@ endif()
 # Metis Library Directories
 if(NOT METIS_LIBRARIES)
 	# Look for static library first?
-	set(CMAKE_FIND_LIBRARY_SUFFIXES .a;.so)
-
+	set(CMAKE_FIND_LIBRARY_SUFFIXES .a;.so;.dylib)
+	
 	find_library(METIS_LIBRARIES
 		NAMES metis
 		HINTS ${METIS_ROOT} ENV METIS_ROOT					# Metis Root Path Variable

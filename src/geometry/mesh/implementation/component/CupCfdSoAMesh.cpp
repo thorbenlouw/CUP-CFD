@@ -12,13 +12,12 @@
  */
 
 #include <cstdlib>
+#include <iostream>
 
 #include "CupCfdSoAMesh.h"
 
 #include "ArrayDrivers.h"
 #include "SortDrivers.h"
-
-#include <iostream>
 
 #include "ExchangePattern.h"
 #include "ExchangePatternConfig.h"

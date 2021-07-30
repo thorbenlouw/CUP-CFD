@@ -25,8 +25,8 @@ endif()
 # ParMetis Library Directories
 if(NOT PARMETIS_LIBRARIES)
 	# Look for static library first?
-	set(CMAKE_FIND_LIBRARY_SUFFIXES .a;.so)
-
+	set(CMAKE_FIND_LIBRARY_SUFFIXES .a;.so;.dylib)
+	
 	find_library(PARMETIS_LIBRARIES
 		NAMES parmetis
 		HINTS ${PARMETIS_ROOT} ENV PARMETIS_ROOT					# Parmetis Root Path Variable

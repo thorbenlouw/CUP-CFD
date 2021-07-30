@@ -9,16 +9,14 @@
  *
  * Contains the definitions for the BenchmarkLinearSolver class.
  */
+#include <cstdlib>
+#include <iostream>
+
+#include <tt_interface_c.h>
 
 #include "BenchmarkLinearSolver.h"
 #include "SparseMatrixCOO.h"
 #include "SparseMatrixCSR.h"
-
-#include "tt_interface_c.h"
-
-#include <cstdlib>
-
-#include <iostream>
 
 namespace cupcfd
 {

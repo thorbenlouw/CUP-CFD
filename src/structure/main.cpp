@@ -12,6 +12,7 @@
 
 #include <string>
 #include <iostream>
+#include <cstddef>
 
 #include "MeshConfigSourceJSON.h"
 #include "MeshConfig.h"
@@ -48,7 +49,7 @@
 #include <memory>
 
 // Timer Interface
-#include "tt_interface_c.h"
+#include <tt_interface_c.h>
 
 #include "petscsys.h"
 
@@ -404,4 +405,6 @@ int main (int argc, char ** argv)
 	    // must destruct before MPI_Finalize()
 
 	MPI_Finalize();
+
+	return EXIT_SUCCESS;
 }

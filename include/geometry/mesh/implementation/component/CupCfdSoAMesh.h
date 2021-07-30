@@ -41,6 +41,8 @@
 // C++ Library
 #include <vector>
 #include <map>
+#include <array>
+
 
 namespace euc = cupcfd::geometry::euclidean;
 

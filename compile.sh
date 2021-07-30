@@ -7,8 +7,13 @@ elif [ "$COMPILER" = "intel" ]; then
 	export CC=mpiicc
 	export CXX=mpicxx
 elif [ "$COMPILER" = "clang" ]; then
-	export CC="mpicc -cc=clang"
-	export CXX="mpicxx -cxx=clang++"
+    if [ $(clang++ --version | grep 'apple' | wc -l) -gt 0 ]; then
+        export CC=mpicc
+        export CXX=mpicxx
+    else
+        export CC="mpicc -cc=clang"
+	    export CXX="mpicxx -cxx=clang++"
+    fi;
 else
 	## Default to GNU, everything has that, right?
 	COMPILER=gnu
@@ -42,10 +47,9 @@ cmake .. -DHDF5_ROOT="$HDF5_ROOT" \
          -DCMAKE_BUILD_TYPE="$RTYPE" -DCOMPILER="$COMPILER" \
          -DMETIS_ROOT="$METIS_ROOT" \
          -DPARMETIS_ROOT="$PARMETIS_ROOT" \
-		 -DSQLITE_LIBS="$SQLITE_ROOT"/lib/libsqlite3.so \
+		 -DSQLITE_ROOT="$SQLITE_ROOT" \
 		 -DPETSC_ROOT="$PETSC_ROOT" \
-		 -DTREETIMER_LIBS="$TREETIMER_ROOT"/libtt.so \
-		 -DTREETIMER_INCLUDE="$TREETIMER_ROOT"/include/timing_library/interface \
+		 -DTREETIMER_ROOT="$TREETIMER_ROOT" \
 		 -DUSE_UNIT_TESTS=OFF
 
 # make VERBOSE=1 -j`nproc`

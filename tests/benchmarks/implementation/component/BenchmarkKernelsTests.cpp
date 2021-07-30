@@ -11,21 +11,24 @@
  */
 
 #define BOOST_TEST_MODULE BenchmarkKernels
-#include <boost/test/unit_test.hpp>
-#include <boost/test/output_test_stream.hpp>
+#include <tt_interface_c.h>
+
 #include <stdexcept>
+#include <iostream>
+
+#include <boost/test/unit_test.hpp>
+#include <boost/test/tools/output_test_stream.hpp>
+
 
 #include "BenchmarkKernels.h"
 #include "Communicator.h"
 #include "Error.h"
-#include "tt_interface_c.h"
 #include "PartitionerNaiveConfig.h"
 #include "PartitionerConfig.h"
 #include "MeshSourceStructGenConfig.h"
 #include "MeshConfig.h"
 #include "CupCfdAoSMesh.h"
 
-#include <iostream>
 
 using namespace cupcfd::benchmark;
 

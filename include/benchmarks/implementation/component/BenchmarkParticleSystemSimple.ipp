@@ -13,7 +13,7 @@
 #ifndef CUPCFD_BENCHMARK_BENCHMARK_PARTICLESYSTEM_SIMPLE_IPP_H
 #define CUPCFD_BENCHMARK_BENCHMARK_PARTICLESYSTEM_SIMPLE_IPP_H
 
-#include "tt_interface_c.h"
+#include <tt_interface_c.h>
 
 namespace cupcfd
 {

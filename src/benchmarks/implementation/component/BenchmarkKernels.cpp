@@ -12,7 +12,7 @@
 
 #include "BenchmarkKernels.h"
 
-#include "tt_interface_c.h"
+#include <tt_interface_c.h>
 #include "CupCfdAoSMesh.h"
 #include "CupCfdSoAMesh.h"
 

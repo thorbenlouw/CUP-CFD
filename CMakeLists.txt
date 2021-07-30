@@ -2,9 +2,8 @@
 # ==================== CMake =============================
 # ========================================================
 
-cmake_minimum_required (VERSION 2.6)
+cmake_minimum_required (VERSION 2.9)
 project (cupcfd LANGUAGES Fortran CXX C)
-#enable_testing()
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
 
 # ====================================================================================================================================
@@ -62,12 +61,17 @@ endif()
 if ( "${CMAKE_BUILD_TYPE}" STREQUAL "Debug" )
   if("${COMPILER}" STREQUAL "intel")
     set(CMAKE_CXX_FLAGS "-DDEBUG -O0 -g -pg -mkl")
-  elseif ("${COMPILER}" STREQUAL "clang")
-    #set(CMAKE_CXX_FLAGS "-DDEBUG -O0 -g -pg -Wfatal-errors -Wunused -Wno-narrowing -Wno-undefined-var-template -Wno-delete-abstract-non-virtual-dtor -Wno-pointer-bool-conversion -Wno-dynamic-class-memaccess -Werror")
-    #set(CMAKE_CXX_FLAGS "-DDEBUG -O0 -g -pg -Wfatal-errors -Wunused -Wextra -Wno-narrowing -Wno-undefined-var-template -Wno-delete-abstract-non-virtual-dtor -Wno-pointer-bool-conversion -Wno-dynamic-class-memaccess -Werror")
-    #set(CMAKE_CXX_FLAGS "-DDEBUG -O0 -g -pg -Wfatal-errors -Wall -Wextra -Wunused -Werror")
-    #set(CMAKE_CXX_FLAGS "-DDEBUG -O0 -g -pg -Wfatal-errors -Weverything -Werror")
-    set(CMAKE_CXX_FLAGS "-DDEBUG -O0 -g -pg -Wfatal-errors -Wunused -Wunused-value -Wunused-parameter -Wunused-variable -Werror")
+  elseif ("${COMPILER}" STREQUAL "clang")  
+    set(MCOUNT_PROFILING_FLAG, "-pg")
+	if (APPLE) 
+		set(USE_MCOUNT_PROFILING_FLAG, "") # Not supported in apple-clang on versions of OS X 10.9+
+	endif()
+	
+    #set(CMAKE_CXX_FLAGS "-DDEBUG -O0 -g ${MCOUNT_PROFILING_FLAG} -Wfatal-errors -Wunused -Wno-narrowing -Wno-undefined-var-template -Wno-delete-abstract-non-virtual-dtor -Wno-pointer-bool-conversion -Wno-dynamic-class-memaccess -Werror")
+    #set(CMAKE_CXX_FLAGS "-DDEBUG -O0 -g ${MCOUNT_PROFILING_FLAG} -Wfatal-errors -Wunused -Wextra -Wno-narrowing -Wno-undefined-var-template -Wno-delete-abstract-non-virtual-dtor -Wno-pointer-bool-conversion -Wno-dynamic-class-memaccess -Werror")
+    #set(CMAKE_CXX_FLAGS "-DDEBUG -O0 -g ${MCOUNT_PROFILING_FLAG} -Wfatal-errors -Wall -Wextra -Wunused -Werror")
+    #set(CMAKE_CXX_FLAGS "-DDEBUG -O0 -g ${MCOUNT_PROFILING_FLAG} -Wfatal-errors -Weverything -Werror")
+    set(CMAKE_CXX_FLAGS "-DDEBUG -O0 -g ${MCOUNT_PROFILING_FLAG} -Wfatal-errors -Wunused -Wunused-value -Wunused-parameter -Wunused-variable -Werror")
   elseif ("${COMPILER}" STREQUAL "gnu")
     #set(CMAKE_CXX_FLAGS "-DDEBUG -O0 -g -pg -Wfatal-errors -Werror -Wno-narrowing")
     #set(CMAKE_CXX_FLAGS "-DDEBUG -O0 -g -pg -Wfatal-errors -Werror -Wno-narrowing -Wunused")
@@ -117,7 +121,11 @@ option(USE_PETSC "Enable use of PETSc Linear Solver" ON)
 # Needs PETSC_ROOT
 
 # === Build Options (Testing etc) ===
-# option (USE_UNIT_TESTS "Enable Unit Tests" ON)
+option (USE_UNIT_TESTS "Enable Unit Tests" ON)
+if (USE_UNIT_TESTS)
+       include(CTest)
+       enable_testing()
+endif()
 
 # Needs an MPI run command for parallel tests
 # ToDo - Enable Serial and Parallel Unit Tests separately
@@ -138,6 +146,8 @@ endif()
 cmake_policy(SET CMP0074 NEW)
 
 find_package(MPI REQUIRED COMPONENTS Fortran)
+find_package(TreeTimer REQUIRED)
+find_package(SQLite3 REQUIRED)
 
 # === File Input/Output Options ===
 if(USE_HDF5)
@@ -159,13 +169,6 @@ endif(USE_PARMETIS)
 if(USE_PETSC)
 	find_package(PETSC REQUIRED)
 endif(USE_PETSC)
-
-# === Timer Library ===
-# Currently default to always needing this
-# Should set via CMake Line but can be set here if needed
-#set(SQLITE_LIBS /path/to/sqlite3/lib/libsqlite3.so)
-#set(TREETIMER_LIBS /path/to/warwick-hpsc/treetimer/libtt.so)
-#set(TREETIMER_INCLUDE /path/to/warwick-hpscetreetimer/include/timing_library/interface)
 
 # ====================================================================================================================================
 # ============================================== Third-Party Libraries ===============================================================
@@ -195,7 +198,7 @@ if(USE_PETSC)
 endif(USE_PETSC)
 
 # === Timer Library Include ===
-set(CORE_INCLUDE ${CORE_INCLUDE} ${TREETIMER_INCLUDE})
+include_directories(${TREETIMER_INCLUDE_DIRS})
 
 # ====================================================================================================================================
 # The following sections should not be edited if only configuring for build purposes.
@@ -681,10 +684,9 @@ add_library(cupcfd_lib ${bench_source_files}
 					   ${utility_source_files}
 			)
 
+set(CORE_LIBS "")
 if(USE_HDF5)
 	set(CORE_LIBS ${HDF5_C_LIBRARIES} z ${CORE_LIBS})
-else(true)
-	set(CORE_LIBS ${CORE_LIBS})
 endif(USE_HDF5)
 
 if(USE_PARMETIS)
@@ -693,32 +695,35 @@ if(USE_PARMETIS)
 elseif(USE_METIS)
 	# Metis only
 	set(CORE_LIBS ${METIS_LIBRARIES} ${CORE_LIBS})
-else(true)
-	# Neither Parmetis nor Metis
-	set(CORE_LIBS ${CORE_LIBS})
 endif(USE_PARMETIS)
 
 if(USE_PETSC)
-	#ToDo: We only want X11 if it is linked against PETSc.....
-	set(CORE_LIBS -lX11 ${PETSC_LIBRARIES} ${CORE_LIBS})
-else(true)
-	set(CORE_LIBS ${CORE_LIBS})
+	find_library(xlib X11)
+	if("${xlib}" STREQUAL "xlib-NOTFOUND")
+		set(LINKX, "")
+	else(true)
+		set(LINKX, "-lX11")
+	endif()
+	set(CORE_LIBS ${LINKX} ${PETSC_LIBRARIES} ${CORE_LIBS})
 endif(USE_PETSC)
+
+set(ALL_LIBS ${CORE_LIBS} ${SQLite3_LIBRARIES} ${TREETIMER_LIBRARIES})
 
 # ===================================================
 # ============== Timer Libraries ====================
 # ===================================================
 # Timer Libraries
-set(ALL_LIBS ${CORE_LIBS} ${SQLITE_LIBS})
 if(COMPILER STREQUAL "intel")
-  set(ALL_LIBS ${CORE_LIBS} ${TREETIMER_LIBS} ifcore)
-else()
-  set(ALL_LIBS ${CORE_LIBS} ${TREETIMER_LIBS})
+  set(ALL_LIBS ${ALL_LIBS} ifcore)
 endif()
 
 # On the CI Runner node, the openmpi HFD5 static lib still needs dlopen  (libdl.so)
 # and HDF5 also needs the compression libs (sz) 
-set(ALL_LIBS dl sz ${ALL_LIBS}) 
+set(ALL_LIBS dl ${ALL_LIBS}) 
+find_library(libsz sz)
+if (NOT("${libsz}" STREQUAL "libsz-NOTFOUND"))
+	set(ALL_LIBS ${libsz} ${ALL_LIBS}) 
+endif()
 
 set(ALL_LIBS cupcfd_lib ${ALL_LIBS})
 
@@ -741,7 +746,7 @@ add_executable(cupcfd src/structure/main.cpp)
 # ========================================================
 # ================== Link Stage ==========================
 # ========================================================
-target_link_libraries (cupcfd ${ALL_LIBS} dl sz)
+target_link_libraries (cupcfd ${ALL_LIBS})
 
 # ====================================================================================================================================
 # ================================================= Unit Tests =======================================================================
@@ -757,7 +762,7 @@ function(addCupCfdTest testName testSrcFile)
 
 	# === Libraries ===
 	target_link_libraries(${testName} ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY})
-	target_link_libraries(${testName} ${ALL_LIBS} sz dl)
+	target_link_libraries(${testName} ${ALL_LIBS})
 	target_compile_definitions(${testName} PRIVATE "BOOST_TEST_DYN_LINK=1")		# Dynamic Library
 
 	# === Add Test to CMake ===
@@ -775,7 +780,7 @@ function(addCupCfdMPITest testName testSrcFile nRanks)
 
 	# === Libraries ===
 	target_link_libraries(${testName} ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY})
-	target_link_libraries(${testName} ${ALL_LIBS} dl sz)
+	target_link_libraries(${testName} ${ALL_LIBS})
 	target_compile_definitions(${testName} PRIVATE "BOOST_TEST_DYN_LINK=1")		# Dynamic Library
 
 	# === Add Test to CMake ===

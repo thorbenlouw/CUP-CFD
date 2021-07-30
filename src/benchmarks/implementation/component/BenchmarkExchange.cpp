@@ -9,11 +9,11 @@
  *
  * Contains the definitions for the BenchmarkExchange class.
  */
+#include <cstdlib>
 
 #include "BenchmarkExchange.h"
 
-#include "tt_interface_c.h"
-#include <cstdlib>
+#include <tt_interface_c.h>
 
 namespace cupcfd
 {
