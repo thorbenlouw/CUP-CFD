@@ -158,7 +158,7 @@ namespace cupcfd
 			I edgeIdx;
 			I numAdj = cupcfd::utility::drivers::safeConvertSizeT<I>(this->adjacencies[nodeLocalIDX].size());
 			status = cupcfd::utility::drivers::linearSearch(&(this->adjacencies[nodeLocalIDX][0]), numAdj, adjNodeLocalIDX, &edgeIdx);
-			if (status == cupcfd::error::E_SUCCESS) {
+			if (status == cupcfd::error::E_SEARCH_SUCCESS) {
 				*exists = true;
 			}
 			else if (status == cupcfd::error::E_SEARCH_NOT_FOUND) {

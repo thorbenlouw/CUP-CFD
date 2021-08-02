@@ -148,7 +148,7 @@ namespace cupcfd
 			// Would avoid need for comparison operators on custom nodes.
 			I index;
 			status = cupcfd::utility::drivers::linearSearch(adjNodes, count, dstNode, &index);
-			if (status == cupcfd::error::E_SUCCESS) {
+			if (status == cupcfd::error::E_SEARCH_SUCCESS) {
 				*exists = true;
 			}
 			else if (status == cupcfd::error::E_SEARCH_NOT_FOUND) {

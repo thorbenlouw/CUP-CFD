@@ -818,7 +818,8 @@ BOOST_AUTO_TEST_CASE(
 }
 
 // Test 3: Test Intersect Count with array2 larger
-BOOST_AUTO_TEST_CASE(intersectArray_calculatesCorrectIntersectWithLongerArray2) {
+BOOST_AUTO_TEST_CASE(
+    intersectArray_calculatesCorrectIntersectWithLongerArray2) {
   int source1[6] = {1, 2, 4, 8, 10, 200};
   int source2[8] = {2, 8, 21, 22, 100, 102, 200, 400};
 

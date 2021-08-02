@@ -8,14 +8,13 @@
  * @section DESCRIPTION
  *
  * Tests for the kernels of the utility search operations
- * 
+ *
  */
 
 #define BOOST_TEST_MODULE SearchKernels
-#include <stdexcept>
-
 #include <boost/test/tools/output_test_stream.hpp>
 #include <boost/test/unit_test.hpp>
+#include <stdexcept>
 
 #include "SearchKernels.h"
 
@@ -30,7 +29,7 @@ BOOST_AUTO_TEST_CASE(binarySearch_test1) {
   cupcfd::error::eCodes status;
 
   status = binarySearch(source, 8, 1, &index);
-  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SUCCESS);
+  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SEARCH_SUCCESS);
   BOOST_CHECK_EQUAL(index, 0);
 }
 
@@ -41,7 +40,7 @@ BOOST_AUTO_TEST_CASE(binarySearch_test2) {
   cupcfd::error::eCodes status;
 
   status = binarySearch(source, 8, 20, &index);
-  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SUCCESS);
+  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SEARCH_SUCCESS);
   BOOST_CHECK_EQUAL(index, 7);
 }
 
@@ -52,7 +51,7 @@ BOOST_AUTO_TEST_CASE(binarySearch_test3) {
   cupcfd::error::eCodes status;
 
   status = binarySearch(source, 8, 9, &index);
-  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SUCCESS);
+  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SEARCH_SUCCESS);
   BOOST_CHECK_EQUAL(index, 4);
 }
 
@@ -63,35 +62,35 @@ BOOST_AUTO_TEST_CASE(binarySearch_test4) {
   cupcfd::error::eCodes status;
 
   status = binarySearch(source, 8, 1, &index);
-  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SUCCESS);
+  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SEARCH_SUCCESS);
   BOOST_CHECK_EQUAL(index, 0);
 
   status = binarySearch(source, 8, 4, &index);
-  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SUCCESS);
+  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SEARCH_SUCCESS);
   BOOST_CHECK_EQUAL(index, 1);
 
   status = binarySearch(source, 8, 7, &index);
-  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SUCCESS);
+  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SEARCH_SUCCESS);
   BOOST_CHECK_EQUAL(index, 2);
 
   status = binarySearch(source, 8, 8, &index);
-  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SUCCESS);
+  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SEARCH_SUCCESS);
   BOOST_CHECK_EQUAL(index, 3);
 
   status = binarySearch(source, 8, 9, &index);
-  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SUCCESS);
+  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SEARCH_SUCCESS);
   BOOST_CHECK_EQUAL(index, 4);
 
   status = binarySearch(source, 8, 11, &index);
-  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SUCCESS);
+  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SEARCH_SUCCESS);
   BOOST_CHECK_EQUAL(index, 5);
 
   status = binarySearch(source, 8, 13, &index);
-  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SUCCESS);
+  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SEARCH_SUCCESS);
   BOOST_CHECK_EQUAL(index, 6);
 
   status = binarySearch(source, 8, 20, &index);
-  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SUCCESS);
+  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SEARCH_SUCCESS);
   BOOST_CHECK_EQUAL(index, 7);
 }
 
@@ -112,7 +111,7 @@ BOOST_AUTO_TEST_CASE(binarySearch_test6) {
   cupcfd::error::eCodes status;
 
   status = binarySearch(source, 7, 1, &index);
-  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SUCCESS);
+  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SEARCH_SUCCESS);
   BOOST_CHECK_EQUAL(index, 0);
 }
 
@@ -123,7 +122,7 @@ BOOST_AUTO_TEST_CASE(binarySearch_test7) {
   cupcfd::error::eCodes status;
 
   status = binarySearch(source, 7, 13, &index);
-  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SUCCESS);
+  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SEARCH_SUCCESS);
   BOOST_CHECK_EQUAL(index, 6);
 }
 
@@ -134,7 +133,7 @@ BOOST_AUTO_TEST_CASE(binarySearch_test8) {
   cupcfd::error::eCodes status;
 
   status = binarySearch(source, 7, 9, &index);
-  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SUCCESS);
+  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SEARCH_SUCCESS);
   BOOST_CHECK_EQUAL(index, 4);
 }
 
@@ -145,31 +144,31 @@ BOOST_AUTO_TEST_CASE(binarySearch_test9) {
   cupcfd::error::eCodes status;
 
   status = binarySearch(source, 8, 1, &index);
-  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SUCCESS);
+  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SEARCH_SUCCESS);
   BOOST_CHECK_EQUAL(index, 0);
 
   status = binarySearch(source, 8, 4, &index);
-  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SUCCESS);
+  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SEARCH_SUCCESS);
   BOOST_CHECK_EQUAL(index, 1);
 
   status = binarySearch(source, 8, 7, &index);
-  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SUCCESS);
+  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SEARCH_SUCCESS);
   BOOST_CHECK_EQUAL(index, 2);
 
   status = binarySearch(source, 8, 8, &index);
-  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SUCCESS);
+  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SEARCH_SUCCESS);
   BOOST_CHECK_EQUAL(index, 3);
 
   status = binarySearch(source, 8, 9, &index);
-  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SUCCESS);
+  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SEARCH_SUCCESS);
   BOOST_CHECK_EQUAL(index, 4);
 
   status = binarySearch(source, 8, 11, &index);
-  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SUCCESS);
+  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SEARCH_SUCCESS);
   BOOST_CHECK_EQUAL(index, 5);
 
   status = binarySearch(source, 8, 13, &index);
-  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SUCCESS);
+  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SEARCH_SUCCESS);
   BOOST_CHECK_EQUAL(index, 6);
 }
 
@@ -191,7 +190,7 @@ BOOST_AUTO_TEST_CASE(linearSearch_test1) {
   cupcfd::error::eCodes status;
 
   status = linearSearch(source, 8, 1, &index);
-  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SUCCESS);
+  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SEARCH_SUCCESS);
   BOOST_CHECK_EQUAL(index, 0);
 }
 
@@ -202,7 +201,7 @@ BOOST_AUTO_TEST_CASE(linearSearch_test2) {
   cupcfd::error::eCodes status;
 
   status = linearSearch(source, 8, 20, &index);
-  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SUCCESS);
+  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SEARCH_SUCCESS);
   BOOST_CHECK_EQUAL(index, 7);
 }
 
@@ -213,7 +212,7 @@ BOOST_AUTO_TEST_CASE(linearSearch_test3) {
   cupcfd::error::eCodes status;
 
   status = linearSearch(source, 8, 9, &index);
-  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SUCCESS);
+  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SEARCH_SUCCESS);
   BOOST_CHECK_EQUAL(index, 4);
 }
 
@@ -224,35 +223,35 @@ BOOST_AUTO_TEST_CASE(linearSearch_test4) {
   cupcfd::error::eCodes status;
 
   status = linearSearch(source, 8, 1, &index);
-  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SUCCESS);
+  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SEARCH_SUCCESS);
   BOOST_CHECK_EQUAL(index, 0);
 
   status = linearSearch(source, 8, 4, &index);
-  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SUCCESS);
+  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SEARCH_SUCCESS);
   BOOST_CHECK_EQUAL(index, 1);
 
   status = linearSearch(source, 8, 7, &index);
-  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SUCCESS);
+  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SEARCH_SUCCESS);
   BOOST_CHECK_EQUAL(index, 2);
 
   status = linearSearch(source, 8, 8, &index);
-  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SUCCESS);
+  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SEARCH_SUCCESS);
   BOOST_CHECK_EQUAL(index, 3);
 
   status = linearSearch(source, 8, 9, &index);
-  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SUCCESS);
+  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SEARCH_SUCCESS);
   BOOST_CHECK_EQUAL(index, 4);
 
   status = linearSearch(source, 8, 11, &index);
-  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SUCCESS);
+  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SEARCH_SUCCESS);
   BOOST_CHECK_EQUAL(index, 5);
 
   status = linearSearch(source, 8, 13, &index);
-  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SUCCESS);
+  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SEARCH_SUCCESS);
   BOOST_CHECK_EQUAL(index, 6);
 
   status = linearSearch(source, 8, 20, &index);
-  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SUCCESS);
+  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SEARCH_SUCCESS);
   BOOST_CHECK_EQUAL(index, 7);
 }
 
@@ -273,7 +272,7 @@ BOOST_AUTO_TEST_CASE(linearSearch_test6) {
   cupcfd::error::eCodes status;
 
   status = linearSearch(source, 7, 1, &index);
-  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SUCCESS);
+  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SEARCH_SUCCESS);
   BOOST_CHECK_EQUAL(index, 0);
 }
 
@@ -284,7 +283,7 @@ BOOST_AUTO_TEST_CASE(linearSearch_test7) {
   cupcfd::error::eCodes status;
 
   status = linearSearch(source, 7, 13, &index);
-  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SUCCESS);
+  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SEARCH_SUCCESS);
   BOOST_CHECK_EQUAL(index, 6);
 }
 
@@ -295,7 +294,7 @@ BOOST_AUTO_TEST_CASE(linearSearch_test8) {
   cupcfd::error::eCodes status;
 
   status = linearSearch(source, 7, 9, &index);
-  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SUCCESS);
+  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SEARCH_SUCCESS);
   BOOST_CHECK_EQUAL(index, 4);
 }
 
@@ -306,31 +305,31 @@ BOOST_AUTO_TEST_CASE(linearSearch_test9) {
   cupcfd::error::eCodes status;
 
   status = linearSearch(source, 8, 1, &index);
-  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SUCCESS);
+  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SEARCH_SUCCESS);
   BOOST_CHECK_EQUAL(index, 0);
 
   status = linearSearch(source, 8, 4, &index);
-  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SUCCESS);
+  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SEARCH_SUCCESS);
   BOOST_CHECK_EQUAL(index, 1);
 
   status = linearSearch(source, 8, 7, &index);
-  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SUCCESS);
+  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SEARCH_SUCCESS);
   BOOST_CHECK_EQUAL(index, 2);
 
   status = linearSearch(source, 8, 8, &index);
-  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SUCCESS);
+  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SEARCH_SUCCESS);
   BOOST_CHECK_EQUAL(index, 3);
 
   status = linearSearch(source, 8, 9, &index);
-  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SUCCESS);
+  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SEARCH_SUCCESS);
   BOOST_CHECK_EQUAL(index, 4);
 
   status = linearSearch(source, 8, 11, &index);
-  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SUCCESS);
+  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SEARCH_SUCCESS);
   BOOST_CHECK_EQUAL(index, 5);
 
   status = linearSearch(source, 8, 13, &index);
-  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SUCCESS);
+  BOOST_CHECK_EQUAL(status, cupcfd::error::E_SEARCH_SUCCESS);
   BOOST_CHECK_EQUAL(index, 6);
 }
 

@@ -815,7 +815,6 @@ if (USE_UNIT_TESTS)
     addCupCfdTest(utility_array_drivers_tests tests/utility/interface/component/ArrayDriverTests.cpp)
     addCupCfdTest(utility_sort_drivers_tests tests/utility/interface/component/SortDriverTests.cpp)
     addCupCfdTest(utility_search_drivers_tests tests/utility/interface/component/SearchDriverTests.cpp)
-    addCupCfdTest(utility_statistics_drivers_tests tests/utility/interface/component/StatisticsDriverTests.cpp)
 
 
     # =====================================================================================================================
