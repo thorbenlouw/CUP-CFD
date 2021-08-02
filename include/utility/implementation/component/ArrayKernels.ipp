@@ -296,7 +296,7 @@ cupcfd::error::eCodes intersectArray(T* source1, I nSource1, T* source2,
     I index;
     err = cupcfd::utility::kernels::binarySearch(searchPtr, searchCap,
                                                  sourcePtr[i], &index);
-    if (err == cupcfd::error::E_SUCCESS) {
+    if (err == cupcfd::error::E_SEARCH_SUCCESS) {
       // Element from source was found in the search array, so is present in
       // both. Add to results
       if (ptr >= nResult) {
