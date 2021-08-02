@@ -67,8 +67,7 @@ jobs:
           -DPARMETIS_ROOT=/usr/lib 		 
           -DSQLITE_LIBS=/usr/lib/x86_64-linux-gnu/lib/libsqlite3.so 		 
           -DPETSC_ROOT=/usr/lib/x86_64-linux-gnu  
-          -DTREETIMER_LIBS=/home/runner/work/CUP-CFD/CUP-CFD/treetimer/libtt.so 		 
-          -DTREETIMER_INCLUDE=/home/runner/work/CUP-CFD/CUP-CFD/treetimer/include/timing_library/interface 		 
+          -DTREETIMER_ROOT=/home/runner/work/CUP-CFD/CUP-CFD/treetimer
           -DUSE_UNIT_TESTS=ON && make -j `nproc`
 
       - name: Run all unit tests 
