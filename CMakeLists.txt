@@ -782,7 +782,7 @@ function(addCupCfdMPITest testName testSrcFile nRanks)
 
     # === Libraries ===
     target_link_libraries(${testName} ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY})
-    target_link_libraries(${testName} ${ALL_LIBS})
+    target_link_libraries(${testName} dl sz ${ALL_LIBS})
     target_compile_definitions(${testName} PRIVATE "BOOST_TEST_DYN_LINK=1")  # Dynamic Library
 
     # === Add Test to CMake ===
