@@ -688,7 +688,7 @@ add_library(cupcfd_lib ${bench_source_files}
 
 set(CORE_LIBS "")
 if (USE_HDF5)
-    set(CORE_LIBS ${HDF5_C_LIBRARIES} z ${CORE_LIBS})
+    set(CORE_LIBS ${HDF5_C_LIBRARIES} z dl ${CORE_LIBS})
 endif (USE_HDF5)
 
 if (USE_PARMETIS)
@@ -782,7 +782,7 @@ function(addCupCfdMPITest testName testSrcFile nRanks)
 
     # === Libraries ===
     target_link_libraries(${testName} ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY})
-    target_link_libraries(${testName} dl sz ${ALL_LIBS})
+    target_link_libraries(${testName} dl ${ALL_LIBS})
     target_compile_definitions(${testName} PRIVATE "BOOST_TEST_DYN_LINK=1")  # Dynamic Library
 
     # === Add Test to CMake ===
@@ -1340,3 +1340,6 @@ if (USE_UNIT_TESTS)
     # === Sources ===
 
 endif (USE_UNIT_TESTS)
+
+
+add_executable(simplest_mpi tests/comm/interface/component/SimplestMpi.cpp)
